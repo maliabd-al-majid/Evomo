@@ -67,5 +67,9 @@ public class RecordingActivity extends AppCompatActivity {
         super.onResume();
     }
     ////////
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensors.IsStarted = false;
+    }
 }
