@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Evomo</string>
+    <string name="action_settings">Settings</string>
+    <string name="Evomo">Evomo</string>
+    <string name="Start">Start</string>
+    <string name="Clear">Clear File</string>
+    <string name="Recording">Recording</string>
+</resources>
