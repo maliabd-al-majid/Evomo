@@ -204,6 +204,7 @@ public class Sensors extends Activity {
         RecordingData = new ArrayList<double[]>();
         file.Clear(context);
         Index = 0;
+        ///
     }
 
 
