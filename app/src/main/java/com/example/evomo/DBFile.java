@@ -77,25 +77,15 @@ public class DBFile {
 
     public boolean Clear(Context context) {
 
-        FileOutputStream fos = null;
+
 
         try {
-            fos = context.openFileOutput(FILE_NAME, MODE_PRIVATE);
-            fos.write("".getBytes());
+            context.deleteFile(FILE_NAME);
             return true;
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return false;
     }
 }

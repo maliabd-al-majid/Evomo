@@ -45,7 +45,7 @@ public class RecordingActivity extends AppCompatActivity {
                 }
                 if (!sensors.IsStarted) {
                     StartEndbutton.setText("Start");
-
+                    sensors.saveRecordstoFile(getApplicationContext());
 
                 }
             }
@@ -59,7 +59,7 @@ public class RecordingActivity extends AppCompatActivity {
         super.onPause();
         StartEndbutton.setText("Start");
         sensors.IsStarted = false;
-
+        sensors.saveRecordstoFile(getApplicationContext());
     }
 
     @Override
@@ -70,6 +70,7 @@ public class RecordingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        sensors.saveRecordstoFile(getApplicationContext());
         sensors.IsStarted = false;
     }
 }

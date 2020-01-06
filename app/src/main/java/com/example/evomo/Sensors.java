@@ -15,8 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Sensors extends Activity {
+    protected static DBFile file;
     public static boolean IsStarted = false;
-    protected DBFile file;
+    private int Index = 0;
     SensorManager sensorManager;
     private float[] accelerationValues;
     private float[] rotationValues;
@@ -67,12 +68,15 @@ public class Sensors extends Activity {
                         System.arraycopy(event.values, 0, userAccelerationValues, 0, 3);
                         break;
                 }
-                timestamp = event.timestamp;
-                if (timestamp - lastUpdate < 1000000000 && Sensors.IsStarted) {// time between records and Button is in Start Status ( Can be edited based on accuracy we need to apply but File and List will contain huge data)
-                    return;
+
+                if (Sensors.IsStarted) {
+                    timestamp = event.timestamp;
+                    if (timestamp - lastUpdate < 1000000000) {// time between records and Button is in Start Status ( Can be edited based on accuracy we need to apply but File and List will contain huge data)
+                        return;
+                    }
+                    lastUpdate = timestamp;
+                    startrecording(context, linearLayout);
                 }
-                lastUpdate = timestamp;
-                startrecording(context, linearLayout);
             }
         };
         setListeners(sensorManager, mEventListener);
@@ -80,14 +84,14 @@ public class Sensors extends Activity {
 
     public void startrecording(Context context, LinearLayout linearLayout) {
         //Start adding Elments to List and File
-        if (this.IsStarted) {
+
             getRecordingData();
-            saveRecordstoFile(context);
             TextView RecordRow = new TextView(context);
             RecordRow.setBackgroundColor(2);
             RecordRow.append(Arrays.toString(RecordingData.get(RecordingData.size() - 1)));
             linearLayout.addView(RecordRow);
-        }
+
+
     }
 
     public void setListeners(SensorManager sensorManager, SensorEventListener mEventListener) {  // initailize all listeners
@@ -157,6 +161,7 @@ public class Sensors extends Activity {
         recordRow[15] = getQuartnionValues()[3];
         recordRow[16] = getTimeStamp();
         RecordingData.add(recordRow);
+        //  saveRecordstoFile(context);
     }
 
     private void setRecordstoView(Context context, LinearLayout linearLayout) {
@@ -169,9 +174,11 @@ public class Sensors extends Activity {
         }
     }
 
-    private void saveRecordstoFile(Context context) {//Save to File
+    public void saveRecordstoFile(Context context) {//Save to File
 
-        file.Save(context, Arrays.toString(RecordingData.get(RecordingData.size() - 1)));
+        for (; Index < RecordingData.size(); Index++) {
+            file.Save(context, Arrays.toString(RecordingData.get(Index)));
+        }
     }
 
     private void getRecordsFromFile(Context context) { // Read from file into List of doubles
@@ -187,6 +194,7 @@ public class Sensors extends Activity {
 
                 }
                 RecordingData.add(recordRow);
+                Index++;
             }
         //  textdata.split()
 
@@ -195,6 +203,7 @@ public class Sensors extends Activity {
     public void clearRecords(Context context) { // Clear File and Clear List
         RecordingData = new ArrayList<double[]>();
         file.Clear(context);
+        Index = 0;
     }
 
 
