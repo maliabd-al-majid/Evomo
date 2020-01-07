@@ -4,7 +4,18 @@ Simple application to Record Sensors' data and store it in file.
 
 ## Description
 
-Record Sensors'Data using Mobile Sensors (Accelerometer , Gravity , Rotation , GyroScope ,Linear Acceleration , TimeStamp) and save them into file .
+Record Sensors'Data using Mobile Sensors to Record Acceleration , Rotation , UserAcceleration , Gravity , Quartnion and TimeStamp 
+then save them into file . 
+when user start Recording : add sensors data to List DoubleX17 which is AccelerationXYZ,RotationXYZ,UseraccelerationXYZ,GravityXYZ,QuartnionWXYZ,TimeStamp.
+and after user stop Recording : Saving all data to File created with Fixed name in DBFile Class
+
+## Sensors:
+   1- Accelerometer for Acceleration ValuesXYZ.    
+   2- Gyroscope for Rotation ValuesXYZ.   
+   3- Linear_Acceleration for User Acceleration ValuesXYZ.   
+   4- Gravity for Gravity ValuesXYZ.   
+   5- Rotation_Vector for Quartnion ValuesWXYZ.  
+
 
 ## Screenshots
 
