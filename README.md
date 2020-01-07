@@ -231,7 +231,9 @@ public class Sensors extends Activity {
 
                 if (Sensors.IsStarted) {
                     timestamp = event.timestamp;
-                    if (timestamp - lastUpdate < 1000000000) {// time between records and Button is in Start Status ( Can be edited based on accuracy we need to apply but File and List will contain huge data)
+                    if (timestamp - lastUpdate < 1000000000) {
+                    // time between records and Button is in Start Status 
+                    //( Can be edited based on accuracy we need to apply but File and List will contain huge data)
                         return;
                     }
                     lastUpdate = timestamp;
